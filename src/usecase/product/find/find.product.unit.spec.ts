@@ -1,9 +1,9 @@
 import Product from "../../../domain/product/entity/product";
-import { FindProductUseCase } from "./find.product.usecase";
+import FindProductUseCase from "./find.product.usecase";
 
 const product  = new Product('123', 'Product test', 345.87);
 
-const MockeRepository = (withException = false) => {
+const MockeRepository = () => {
     return {
         find: jest.fn().mockImplementation((id) => {
             if (id != '123') throw new Error("Product not found");
