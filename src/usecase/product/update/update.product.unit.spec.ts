@@ -35,22 +35,22 @@ describe("Unit update product use case", ()=> {
         });
     })
 
-    it("Update a product with use case", async () => {
+    it("Update a product with use case when name is empty", async () => {
         const productRepository = MockeRepository();
         const usecase = new UpdateProductUseCase(productRepository);
 
         expect(() => {
            return usecase.execute({...input, ...{ name: '' }});
-        }).rejects.toThrow("Name is required");
+        }).rejects.toThrow("product: Name is required");
     })
 
-    it("Update a product with use case", async () => {
+    it("Update a product with use case when price is negative", async () => {
         const productRepository = MockeRepository();
         const usecase = new UpdateProductUseCase(productRepository);
 
         expect(() => {
            return usecase.execute({ ...input, ...{ price: -10 } });
-        }).rejects.toThrow("Price must be greater than zero");
+        }).rejects.toThrow("product: Price must be greater than zero");
     })
 
     it("Update a product with use case when not found", async () => {

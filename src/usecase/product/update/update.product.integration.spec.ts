@@ -43,7 +43,7 @@ describe("Integration update product use case", ()=> {
         });
     })
 
-    it("Update a product with use case", async () => {
+    it("Update a product with use case when name is empty", async () => {
         const productRepository = new ProductRepository();
         const usecase = new UpdateProductUseCase(productRepository);
         const product = new Product("123", "New Product", 31.50);
@@ -57,10 +57,10 @@ describe("Integration update product use case", ()=> {
 
         expect(async () => {
             return await usecase.execute(input);
-        }).rejects.toThrow("Name is required");
+        }).rejects.toThrow("product: Name is required");
     })
 
-    it("Update a product with use case", async () => {
+    it("Update a product with use case when price is negative", async () => {
         const productRepository = new ProductRepository();
         const usecase = new UpdateProductUseCase(productRepository);
         const product = new Product("123", "New Product", 31.50);
@@ -73,7 +73,7 @@ describe("Integration update product use case", ()=> {
 
         expect(() => {
             return usecase.execute(input);
-        }).rejects.toThrow("Price must be greater than zero");
+        }).rejects.toThrow("product: Price must be greater than zero");
     })
 
     it("Update a product with use case when not found", async () => {

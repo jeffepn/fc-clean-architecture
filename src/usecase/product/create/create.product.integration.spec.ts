@@ -40,21 +40,30 @@ describe("Integration create product use case", ()=> {
         });
     })
 
-    it("Create a product with use case", async () => {
+    it("Create a product with use case when name is empty", async () => {
         const productRepository = new ProductRepository();
         const usecase = new CreateProductUseCase(productRepository);
 
         expect(() => {
            return usecase.execute({...input, ...{ name: '' }});
-        }).rejects.toThrow("Name is required");
+        }).rejects.toThrow("product: Name is required");
     })
 
-    it("Create a product with use case", async () => {
+    it("Create a product with use case when price is negative", async () => {
         const productRepository = new ProductRepository();
         const usecase = new CreateProductUseCase(productRepository);
 
         expect(() => {
            return usecase.execute({ ...input, ...{ price: -10 } });
-        }).rejects.toThrow("Price must be greater than zero");
+        }).rejects.toThrow("product: Price must be greater than zero");
+    })
+
+    it("Create a product with use case when name is empty and price is negative", async () => {
+        const productRepository = new ProductRepository();
+        const usecase = new CreateProductUseCase(productRepository);
+
+        expect(() => {
+           return usecase.execute({ name: '',  price: -10 });
+        }).rejects.toThrow("product: Name is required,product: Price must be greater than zero");
     })
 })

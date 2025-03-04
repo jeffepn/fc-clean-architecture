@@ -28,21 +28,21 @@ describe("Unit create product use case", ()=> {
         });
     })
 
-    it("Create a product with use case", async () => {
+    it("Create a product with use case when name is empty", async () => {
         const productRepository = MockeRepository();
         const usecase = new CreateProductUseCase(productRepository);
 
         expect(() => {
            return usecase.execute({...input, ...{ name: '' }});
-        }).rejects.toThrow("Name is required");
+        }).rejects.toThrow("product: Name is required");
     })
 
-    it("Create a product with use case", async () => {
+    it("Create a product with use case when price is negative", async () => {
         const productRepository = MockeRepository();
         const usecase = new CreateProductUseCase(productRepository);
 
         expect(() => {
            return usecase.execute({ ...input, ...{ price: -10 } });
-        }).rejects.toThrow("Price must be greater than zero");
+        }).rejects.toThrow("product: Price must be greater than zero");
     })
 })
